@@ -1,16 +1,11 @@
-resource "kubernetes_namespace" "github" {
-  metadata {
-    name = "github"
-  }
-}
-
 resource "kubernetes_manifest" "self_host_github_runner" {
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
     kind       = "RunnerDeployment"
     metadata = {
       name      = "aws-self-host"
-      namespace = kubernetes_namespace.github.metadata.0.name
+      namespace = var.github_namespace_name
+      
     }
     spec = {
       replicas = 1
@@ -22,5 +17,4 @@ resource "kubernetes_manifest" "self_host_github_runner" {
       }
     }
   }
-  depends_on = [helm_release.gihtub_action]
 }
