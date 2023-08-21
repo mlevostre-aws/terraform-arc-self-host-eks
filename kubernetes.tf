@@ -23,6 +23,9 @@ resource "kubernetes_manifest" "self_host_github_runner" {
 resource "kubernetes_service_account" "github_service_account" {
   metadata {
     namespace = var.github_namespace_name
-    name      = "github-action"
+    name      = local.github_service_account_name
+    annotations = {
+        "eks.amazonaws.com/role-arn" = module.github_action_role.iam_role_arn
+    }
   }
 }

@@ -6,7 +6,7 @@ module "github_action_role" {
   oidc_providers = {
     main = {
       provider_arn               = data.aws_iam_openid_connect_provider.oidc.arn
-      namespace_service_accounts = ["${var.github_namespace_name}:${kubernetes_service_account.github_service_account.metadata.0.name}"]
+      namespace_service_accounts = ["${var.github_namespace_name}:${local.github_service_account_name}"]
     }
   }
 }
