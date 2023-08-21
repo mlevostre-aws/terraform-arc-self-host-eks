@@ -12,9 +12,16 @@ resource "kubernetes_manifest" "self_host_github_runner" {
       template = {
         spec = {
           organization = "mlevos-demo"
-          labels       = ["aws", "test"]
+          labels       = ["aws"]
         }
       }
     }
+  }
+}
+
+resource "kubernetes_service_account" "github_service_account" {
+  metadata {
+    namespace = var.github_namespace_name
+    name      = "github-action"
   }
 }
