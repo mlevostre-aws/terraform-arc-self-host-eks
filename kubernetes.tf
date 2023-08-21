@@ -18,7 +18,7 @@ resource "kubernetes_manifest" "self_host_github_runner" {
             {
               name            = "aws"
               image           = "amazon/aws-cli:2.13.11"
-              imagePullPolicy = Always
+              imagePullPolicy = "Always"
             }
           ]
         }
