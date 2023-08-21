@@ -12,8 +12,9 @@ resource "kubernetes_manifest" "self_host_github_runner" {
       template = {
         spec = {
           serviceAccountName = kubernetes_service_account.github_service_account.metadata.0.name
-          organization = "mlevos-demo"
-          labels       = ["aws"]
+          organization       = "mlevos-demo"
+          image              = "amazon/aws-cli:2.13.11"
+          labels             = ["aws"]
         }
       }
     }
@@ -25,7 +26,7 @@ resource "kubernetes_service_account" "github_service_account" {
     namespace = var.github_namespace_name
     name      = local.github_service_account_name
     annotations = {
-        "eks.amazonaws.com/role-arn" = module.github_action_role.iam_role_arn
+      "eks.amazonaws.com/role-arn" = module.github_action_role.iam_role_arn
     }
   }
 }
