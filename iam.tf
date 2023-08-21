@@ -3,10 +3,6 @@ module "github_action_role" {
 
   role_name = "github-action-role"
 
-  role_policy_arns = {
-    policy = "arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
-  }
-
   oidc_providers = {
     main = {
       provider_arn               = data.aws_iam_openid_connect_provider.oidc.arn
@@ -14,6 +10,9 @@ module "github_action_role" {
     }
   }
 }
-
+resource "aws_iam_role_policy_attachment" "github_action_attach" {
+  role       = module.github_action_role.iam_role_name
+  policy_arn = "arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
+}
 
  
