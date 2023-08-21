@@ -8,5 +8,5 @@ data "aws_eks_cluster_auth" "eks_cluster" {
 
 
 data "aws_iam_openid_connect_provider" "oidc" {
-  url = data.aws_eks_cluster.eks_cluster.issuer
+  url = data.aws_eks_cluster.eks_cluster.identity.oidc.issuer
 }
