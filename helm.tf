@@ -4,10 +4,6 @@ resource "helm_release" "gihtub_action" {
   repository = "https://actions-runner-controller.github.io/actions-runner-controller"
   chart      = "actions-runner-controller"
   namespace  = kubernetes_namespace.github.metadata.0.name
-  depends_on = [
-    module.eks_cluster,
-    helm_release.cert_manager
-  ]
   set {
     name  = "authSecret.create"
     value = "true"
