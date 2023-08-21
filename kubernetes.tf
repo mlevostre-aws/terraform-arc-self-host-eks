@@ -11,6 +11,7 @@ resource "kubernetes_manifest" "self_host_github_runner" {
       replicas = 1
       template = {
         spec = {
+          serviceAccountName = kubernetes_service_account.github_service_account.metadata.0.name
           organization = "mlevos-demo"
           labels       = ["aws"]
         }

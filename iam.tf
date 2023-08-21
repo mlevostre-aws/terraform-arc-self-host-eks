@@ -1,4 +1,4 @@
-module "vpc_cni_irsa_role" {
+module "github_action_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
   role_name = "github-action-role"
@@ -10,3 +10,9 @@ module "vpc_cni_irsa_role" {
     }
   }
 }
+resource "aws_iam_role_policy_attachment" "github_action_attach" {
+  role       = module.github_action_role.iam_role_name
+  policy_arn = "arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
+}
+
+ 
